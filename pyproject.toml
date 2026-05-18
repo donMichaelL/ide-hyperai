@@ -1,0 +1,15 @@
+[project]
+name = "hyperai-ide-tutorial"
+version = "0.1.0"
+requires-python = ">=3.14"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Michael Loukeris" },
+]
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "mkdocs-material>=9.7.6",
+]
