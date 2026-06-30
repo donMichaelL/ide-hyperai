@@ -4,6 +4,25 @@ Deploy your first web server on HyperAI with a few simple steps.
 
 Open the IDE at [ide.hyperai.di.uoa.gr](https://ide.hyperai.di.uoa.gr/) and follow along.
 
+## Step 0 — Publish your image to a whitelisted registry { #step-0 }
+
+Before deploying, your container must live in a **public** registry whitelisted by HyperAI — for example [Docker Hub](https://hub.docker.com/){ target="_blank" rel="noopener" }. You'll reference it in [Step 5](#step-5) when filling the **Application Image** field.
+
+Build the image locally:
+
+```bash
+docker build -t <user>/<image>:<tag> .
+```
+
+Push it to the registry:
+
+```bash
+docker push <user>/<image>:<tag>
+```
+
+!!! tip "Further reading"
+    Follow the official [Docker Hub quickstart](https://docs.docker.com/docker-hub/quickstart/){ target="_blank" rel="noopener" } for more information.
+
 ## Step 1 — Create a working directory for your app
 
 You can create a working directory for organizing your app, or group of apps. This is done through the Workspace Explorer by clicking **Create Folder**.
@@ -32,10 +51,10 @@ The Wizard offers a series of menus that help build applications for a specific 
 
 ![Create Application Profile dialog showing the Basic Information page](assets/wizard-basic-info.png)
 
-## Step 5 — Navigating the Wizard
+## Step 5 — Navigating the Wizard { #step-5 }
 
 1. **Basic Information.** Generic attributes such as the Name of the app, a short description, and the owner's name.
-2. **Application Image.** Specify the application image you want to deploy. Make sure you have created an image first before filling this field.
+2. **Application Image.** Reference the image you pushed in [Step 0](#step-0) — e.g. `<user>/<image>:<tag>`.
 3. **Deployment Profile.** Choose a preset of values — available RAM, CPU cores, GPU and disk storage — tied to a specific use case. Options include **Regular**, **Eco-Friendly**, **AI-Intensive**, and **High Performance**.
 4. **Profile Details.** The preset values for the selected Deployment Profile are shown and can be further modified.
 5. **Networking.** Set the application's ports and protocols.
