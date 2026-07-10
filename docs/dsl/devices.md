@@ -232,4 +232,4 @@ spec:
 
 ## Examples
 
-See [Cookbook & Examples](../cookbook.md) for a minimal device app example.
+See [Cookbook & Examples](../cookbook.md#device-applications) for minimal device app examples.

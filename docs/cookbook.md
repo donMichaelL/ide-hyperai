@@ -2,6 +2,65 @@
 
 Recipes and examples for building complex workflows including native and device applications.
 
+## Native Applications
+
+The examples below are native Applications — workloads defined through an application profile. All available attributes are explained in the [Native Apps reference](dsl/native-apps.md).
+
+### Hello World Web Server — nginx
+
+A workflow that deploys an nginx server. The user expresses their preferences through specific constraints and QoS requirements.
+
+```yaml
+applicationProfile:
+  metadata:
+    type: "native"
+    schemaVersion: "1.1.0"
+    name: "hello-world-webserver"
+    version: "1.0.0"
+    description: "Nginx web server for HyperAI platform assessment."
+    owner: "UoA-Team"
+    lifecyclePhase: "development"
+    annotations:
+      intent: "platform-demo"
+      domain: "education"
+      language: "Python 3.10"
+      dependencies: ["fastapi", "uvicorn"]
+
+  specs:
+    runtime:
+      executionType: "container"
+      entryPoint: "uvicorn"
+      args: ["main:app", "--host", "0.0.0.0", "--port", "8000"]
+      baseOS:
+        name: "python"
+        version: "3.10-slim"
+      containerImage:
+        uri: "nginx"
+        tag: "latest"
+
+    resources:
+      cpu: "2000m"
+      memory: "10Gi"
+      storage: "1Gi"
+
+    network:
+      ports:
+        - port: 8000
+          protocol: "TCP"
+          publicExposure: true
+      protocols: ["HTTP"]
+
+    constraints:
+      supportedArchitectures: ["x86_64", "arm64"]
+      securityLevel: "high"
+      dataClassification: "private"
+      isHighlyAvailable: false
+
+    qos:
+      startupTime: "10s"
+      availability: "99.0%"
+```
+
 ## Device Applications
 
 The examples below are device Applications — workloads deployed to Device Nodes across the edge. All available attributes are explained in the [Device Apps reference](dsl/devices.md).
@@ -227,4 +286,3 @@ spec:
 ```
 
 > **Note:** You have to set a correct url in the `apkUrl` attribute, to point to an APK, of your choosing.
-
