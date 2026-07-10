@@ -1,12 +1,5 @@
-# Cookbook & Examples
 
-Recipes and examples for building complex workflows including native and device applications.
-
-## Device Applications
-
-The examples below are device Applications — workloads deployed to Device Nodes across the edge. All available attributes are explained in the [Device Apps reference](dsl/devices.md).
-
-### Hello World — Docker
+## Hello World — Docker (another Minimal Example)
 
 A minimal Docker-based application for testing device registration and scheduling. No `device_name` is specified — the platform scheduler will automatically select the best available device with Docker support.
 
@@ -56,52 +49,10 @@ spec:
     faultTolerance: "graceful-degradation"
     dataClassification: "internal"
 ```
-### Web Server (nginx) — Docker
 
-Below you can find a very minimal example of a workload targeted to a Device Node with name `my-device`. This device is a registered Device Node in the cluster and also supports docker image runtime. All possible attributes are explained in the [Device Apps reference](dsl/devices.md).
+---
 
-```yaml
-apiVersion: hyper.ai/v1
-kind: Application
-metadata:
-  name: my-app
-  namespace: default
-spec:
-  device_name: pi-node-1
-  app:
-    type: device
-    schemaVersion: "1.0.0"
-    name: "my-app"
-    version: "1.0.0"
-    owner: "My Team"
-    lifecyclePhase: "production"
-  workload:
-    kind: DockerImage
-    dockerImage:
-      image: "nginx:latest"
-  network:
-    ports:
-      - port: 80
-        protocol: "HTTP"
-    networkBandwidthMin: { value: 1, unit: "Mbps" }
-  qos:
-    latencyToleranceMax: { value: 500, unit: "ms" }
-    energyCost: { value: 5, unit: "W" }
-    monetaryCost: { value: 0.01, currency: "USD", per: "hour" }
-    resilience: "auto-restart"
-    availability: { value: 0.95, unit: "fraction" }
-    startupTime: { value: 5, unit: "s" }
-  constraints:
-    schedulingPriority: 5
-    supportedArchitectures: ["amd64", "arm64"]
-    geoLocationRequirement: "LocalZone"
-    isHighlyAvailable: false
-    faultTolerance: "graceful-degradation"
-    dataClassification: "internal"
-```
-
-
-### Telemetry Collector — Docker
+## Telemetry Collector — Docker
 
 A production-grade Dockerized telemetry collector that exports metrics and logs. Demonstrates the use of resource requirements, execution parameters, and environment variables.
 
@@ -167,7 +118,9 @@ spec:
 
 > **Note:** You have to set a valid docker image tag in the `image` attribute, of your choosing.
 
-### Vision Capture — Android APK
+---
+
+## Vision Capture — Android APK
 
 An Android APK application that captures video frames and emits object detections. Demonstrates Android workload configuration including APK URL, package name, launch intent, and execution parameters. Targets a specific device by name.
 
@@ -181,7 +134,7 @@ metadata:
     intent: "Computer vision capture"
     domain: "edge-vision"
 spec:
-  device_name: smartphone-android-1
+  device_name: <your-device-name>
   app:
     type: device
     schemaVersion: "1.0.0"
@@ -226,5 +179,6 @@ spec:
     dataClassification: "private"
 ```
 
-> **Note:** You have to set a correct url in the `apkUrl` attribute, to point to an APK, of your choosing.
+> **Note:** Replace `<your-device-name>` with the name of a registered Android DeviceNode. The IDE is capable of retrievin a list of edge devices. If `device_name` is omitted, the Open Connectors will attempt to find a suitable Android device automatically.
 
+> **Note:** You have to set a correct url in the `apkUrl` attribute, to point to an APK, of your choosing.
