@@ -1,6 +1,6 @@
 # Defining Device Node Applications
 
-An **Application** is a Kubernetes custom resource (`kind: Application`, API group `hyper.ai/v1`) that describes a deployable workload:
+An **Application** is a Kubernetes [custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/){ target="_blank" rel="noopener" } that describes a deployable workload:
 
 - an **Android** APK
 - a **Docker image**
@@ -10,10 +10,45 @@ along with the device it should run on and the constraints that govern its deplo
 
 ---
 
+## Manifest Structure
+Every Application manifest follows the standard Kubernetes resource layout:
+
+```yaml
+apiVersion: hyper.ai/v1
+kind: Application
+metadata:
+  name: my-app
+  annotations:
+    intent: "Computer vision capture"
+spec:
+  # the application definition
+status:
+  # read-only, set by the platform
+```
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `apiVersion` | string | ✅ | `hyper.ai/v1` |
+| `kind` | string | ✅ | `Application` |
+| `metadata` | object | ✅ | Application metadata — see [`metadata`](#metadata) |
+| `spec` | object | ✅ | Application Definition — see [`spec`](#spec) |
+| `status` | object | ❌ | Set by the platform — see [`status`](#status) |
+
+---
+
 ## Field Reference
 Below we provide all ***mandatory*** (✅) and ***optional*** (❌) fields that are registered in the Hyper-AI platform. The user can also provide additional fields and attributes, which will be forwarded and be accessible by their application.
 
-### `spec` — Device Targeting
+### `metadata` — Application Metadata { #metadata }
+
+| Field | Type | Required | Example |
+|---|---|---|---|
+| `metadata.name` | string | ✅ | `"vision-capture-android"` |
+| `metadata.annotations` | map[string]string | ❌ | `intent: "Computer vision capture"` |
+
+---
+
+### `spec` — Application Definition { #spec }
 The attributes below are not required. Specifically it is possible to select a Device Node from the IDE UI, and this will fill the `device_name` attribute. Regarding the `device_uuid`, **you should not alter or set it**.
 
 | Field | Type | Required | Example |
@@ -191,7 +226,7 @@ These are additional attributes for required describing resources. They are impo
 
 ---
 
-### `status` — Deployment Status (Read-only)
+### `status` — Deployment Status (Read-only) { #status }
 
 Unlike the `spec` fields above, `status` is not set by the user. The platform updates `status.phase` automatically as the application progresses through its lifecycle:
 
