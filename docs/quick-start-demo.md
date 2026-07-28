@@ -6,7 +6,7 @@ Open the IDE at [ide.hyperai.di.uoa.gr](https://ide.hyperai.di.uoa.gr/) and foll
 
 ## Step 0 — Publish your image to a whitelisted registry { #step-0 }
 
-Before deploying, your container must live in a **public** registry whitelisted by HyperAI — for example [Docker Hub](https://hub.docker.com/){ target="_blank" rel="noopener" }. You'll reference it in [Step 5](#step-5) when filling the **Application Image** field.
+Before deploying, your container must live in a **public** registry whitelisted by HyperAI — for example [Docker Hub](https://hub.docker.com/){ target="_blank" rel="noopener" }. You'll reference it in [Step 3](#step-3) when building your Application Profile.
 
 Build the image locally:
 
@@ -23,62 +23,51 @@ docker push <user>/<image>:<tag>
 !!! tip "Further reading"
     Follow the official [Docker Hub quickstart](https://docs.docker.com/docker-hub/quickstart/){ target="_blank" rel="noopener" } for more information.
 
-## Step 1 — Create a working directory for your app
+## Step 1 — Sign in
+
+When you open the IDE you are redirected to the HyperAI sign-in page. Enter your email and password and click **Sign In**.
+
+If you don't have an account yet, click **Register** and create one first.
+
+![HyperAI sign-in page with email and password fields and a Register link](assets/login.png)
+
+## Step 2 — Create a working directory for your app
 
 You can create a working directory for organizing your app, or group of apps. This is done through the Workspace Explorer by clicking **Create Folder**.
 
-![Workspace Explorer with the YAML editor and Key/Value Inspector open](assets/workspace-explorer.png)
+![Explorer panel with the New Folder button highlighted](assets/create-directory.png)
 
-## Step 2 — Create your Application Profile `.yaml`
+## Step 3 — Create your Application Profile `.yaml` { #step-3 }
 
 After creating the working directory, the application profile `.yaml` document must be created. Application profiles contain all the attributes of the app the user wants to run. Again this is done through the Workspace Explorer by clicking **Create File**. Name the file accordingly and add `.yaml` at the end.
 
-![Dialog prompting for a new file name in the Workspace Explorer](assets/new-file-dialog.png)
+To build the profile, consult the DSL Specification: [Native Apps](dsl/native-apps.md) for native applications, or [Device Apps](dsl/devices.md) for applications meant to run on a device. You can also find ready-to-use examples in the [Cookbook & Examples](cookbook.md). This is where you reference the container image you pushed in [Step 0](#step-0).
 
-## Step 3 — Build the Application Profile
+![Explorer panel with the New File button highlighted](assets/create-file.png)
 
-When you are ready to start building the desired Application Profile, click the file in the Workspace Explorer. It opens in the text editor. From there you can:
+## Step 4 — Deployment
 
-- edit manually,
-- choose a ready-to-play profile from the **Templates**, or
-- use the **Application Wizard**.
+When you are ready, click the **Deploy** button. Before this step, make sure each profile has been saved.
 
-While editing, remember to save the document before deploying it.
+![IDE header with the Deploy button highlighted](assets/deploy.png)
 
-## Step 4 — Use the Wizard
+In the popup window, select the workflow you want to deploy and click **Deploy**. Multiple profiles can be deployed at the same time.
 
-The Wizard offers a series of menus that help build applications for a specific use case easily, without the need to memorize specific attributes and values tied to each use case.
+![Deploy dialog with the folder selected and profiles checked for deployment](assets/deploy-b.png)
 
-![Create Application Profile dialog showing the Basic Information page](assets/wizard-basic-info.png)
+You will be asked to manually change the workflow name — if you don't want to, just skip it by clicking **OK**.
 
-## Step 5 — Navigating the Wizard { #step-5 }
 
-1. **Basic Information.** Generic attributes such as the Name of the app, a short description, and the owner's name.
-2. **Application Image.** Reference the image you pushed in [Step 0](#step-0) — e.g. `<user>/<image>:<tag>`.
-3. **Deployment Profile.** Choose a preset of values — available RAM, CPU cores, GPU and disk storage — tied to a specific use case. Options include **Regular**, **Eco-Friendly**, **AI-Intensive**, and **High Performance**.
-4. **Profile Details.** The preset values for the selected Deployment Profile are shown and can be further modified.
-5. **Networking.** Set the application's ports and protocols.
+## Step 5 — Start your workflows
 
-![Create Application Profile dialog showing the Deployment Profile selection](assets/wizard-deployment-profile.png)
+If you haven't received an error message, click the **Dashboard**. In the list of deployments, find the one you just deployed and press **Start**.
 
-## Step 6 — Finalize the Application Profile
+![Dashboard deployments list with the Start button](assets/start.png)
 
-After navigating through all the Wizard menus, a new Application Profile is generated with the selected values. Save the newly generated profile or continue editing it through the editor.
+This may take some time until the workflow status is **Running**.
 
-## Step 7 — Deployment
+## Tips
 
-When all Application Profiles are ready, click the **Deploy** button. Before this step, make sure each profile has been saved. After clicking the button a window appears for selecting the profiles to deploy — multiple profiles can be deployed at the same time.
+If you want to see live analytics of your workflow, click the **Metrics** button.
 
-![Deploy dialog with profiles selected for deployment](assets/deploy-dialog.png)
-
-## Step 8 — Deployment status
-
-After deployment the Application Profiles are sent to the APM Translator. Watch the console for the status of the deployment. After a successful one, the following message appears:
-
-```text
-[SUCCESS] Deployment Successful! ID: 21c30132-f22e-40ac-a11d-1bd54d8cb3b0
-```
-
-The ID shown is the specific UUID assigned to this deployment.
-
-![Test Connection console with INFO, OK and SUCCESS messages](assets/deployment-success-console.png)
+![Live analytics view of a running workflow](assets/analytics.png)
