@@ -1,6 +1,8 @@
 site_name: HyperAI IDE Tutorial
 site_description: Tutorial for the HyperAI IDE component
 site_url: https://ide-tutorial.hyperai.di.uoa.gr/
+repo_url: https://github.com/donMichaelL/ide-hyperai
+edit_uri: edit/master/docs/
 copyright: Part of the <a href="https://hyper-ai-project.eu/">HyperAI project</a> &mdash; funded by the European Union
 theme:
   name: material
@@ -16,6 +18,7 @@ theme:
     - navigation.sections
     - navigation.top
     - content.code.copy
+    - content.action.view
     - search.suggest
     - search.highlight
     - toc.follow
@@ -34,6 +37,26 @@ theme:
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
+
+plugins:
+  - search
+  - llmstxt:
+      markdown_description: >-
+        Tutorial for the IDE component of the EU-funded HYPER-AI project.
+        Covers signing in, building application profiles with the HyperAI DSL
+        (native and device apps), deploying workflows, and ready-to-use examples.
+      full_output: llms-full.txt
+      sections:
+        Getting started:
+          - index.md
+          - quick-start-demo.md
+        IDE Guide:
+          - ide-guide.md
+        DSL Specification:
+          - dsl/native-apps.md
+          - dsl/devices.md
+        Examples:
+          - cookbook.md
 
 extra_css:
   - stylesheets/extra.css

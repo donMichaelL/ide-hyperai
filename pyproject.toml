@@ -11,5 +11,6 @@ dependencies = []
 
 [dependency-groups]
 dev = [
+    "mkdocs-llmstxt>=0.5.0",
     "mkdocs-material>=9.7.6",
 ]
