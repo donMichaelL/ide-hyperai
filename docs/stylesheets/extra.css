@@ -35,3 +35,7 @@
 .md-typeset table:not([class]) td:first-child code {
   white-space: nowrap;
 }
+
+.md-grid {
+  max-width: 80rem;
+}
