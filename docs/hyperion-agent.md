@@ -121,6 +121,60 @@ special treatment (`demo%2Fapp.yaml` is accepted too).
 | `404` | `{"error": "File not found"}` |
 | `409` | `{"error": "Ambiguous file name", "matches": [...]}` |
 
+## Validating a file — the `validate_file` helper
+
+Validating is **not** an action either. Your agent asks the IDE backend to check
+a file against the [Native Apps](dsl/native-apps.md) or [Device Apps](dsl/devices.md)
+rules. You send only the path — the backend reads the file itself.
+
+```python
+from helpers import validate_file
+
+report = await validate_file("app.yaml")
+```
+
+It returns the report as a **dict**:
+
+```json
+{
+    "path": "demo/app.yaml",
+    "type": "device",
+    "valid": false,
+    "errors": [
+        {"line": 3, "column": 1, "endLine": 3, "endColumn": 9, "field": "metadata.name", "message": "is required"}
+    ],
+    "warnings": [
+        {"line": 12, "column": 5, "endLine": 12, "endColumn": 12, "field": "spec.exec.retries", "message": "unknown field, not part of the schema"}
+    ]
+}
+```
+
+- `type` is `native` or `device`.
+- `valid` is `false` as soon as there is one error.
+- `line` and `column` point at the problem. For a missing field they point at
+  the section where it should be added.
+
+The `path` works the same way as
+in [`read_file`](#reading-a-file-the-read_file-helper) — a full path or just a
+name.
+
+!!! note "Errors"
+    On failure it raises `ValidateFileError`, for the same reasons as
+    `read_file`. An invalid file is **not** an error — you get the report with
+    `valid: false`.
+
+**Under the hood** `validate_file` is one `GET` against the IDE backend:
+
+```
+GET http://localhost:3001/api/agent/validation/file?path=app.yaml
+```
+
+| Status | Body |
+|---|---|
+| `200` | the report |
+| `404` | `{"error": "File not found"}` |
+| `409` | `{"error": "Ambiguous file name", "matches": [...]}` |
+
 
 !!! note "Local vs Docker"
     If you have followed the challenge description, then when you run the
