@@ -39,8 +39,8 @@ Below we provide all ***mandatory*** (✅) and ***optional*** (❌) fields that 
 | `description` | string | ❌ | `"Nginx web server for HyperAI platform assessment."` | A short description of what the application does. |
 | `owner` | string | ✅ | `"UoA-Team"` | Person or organization responsible for this application. |
 | `lifecyclePhase` | string, enum: `development` `testing` `production` | ✅ | `"development"` | Lifecycle stage: development, testing, or production. |
-| `createdAt` | string (RFC 3339) | ✅ | `"2026-06-04T12:00:00Z"` | Creation timestamp in RFC 3339 format (UTC). |
-| `updatedAt` | string (RFC 3339) | ✅ | `"2026-06-04T12:30:00Z"` | Last modification timestamp in RFC 3339 format (UTC). |
+| `createdAt` | string (RFC 3339) | ❌ | `"2026-06-04T12:00:00Z"` | Creation timestamp in RFC 3339 format (UTC). |
+| `updatedAt` | string (RFC 3339) | ❌ | `"2026-06-04T12:30:00Z"` | Last modification timestamp in RFC 3339 format (UTC). |
 | `annotations.intent` | string | ❌ | `"platform-demo"` | Purpose of the application |
 | `annotations.domain` | string | ❌ | `"education"` | Classification of application (e.g., AI, Automotive, robotics) |
 | `annotations.language` | string | ❌ | `"Python 3.10"` | Programming language used by the application |
@@ -85,6 +85,7 @@ Below we provide all ***mandatory*** (✅) and ***optional*** (❌) fields that 
 | `ports[].port` | integer | ✅ | `8000` | port number |
 | `ports[].protocol` | string | ✅ | `"TCP"` | protocol used by this port |
 | `ports[].publicExposure` | boolean | ❌ | `true` | Whether the port is publicly exposed |
+| `protocols` | list | ❌ | `["HTTP"]` | Application-level protocols used by the application (e.g., HTTP, gRPC) |
 | `networkBandwidthMin` | string (`Mbps` `Gbps`) | ❌ | `"100Mbps"` | Minimum network bandwidth. |
 
 ---
