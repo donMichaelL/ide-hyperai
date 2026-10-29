@@ -39,9 +39,9 @@ applicationProfile:
         tag: "latest"
 
     resources:
-      cpu: "2000m"
-      memory: "10Gi"
-      storage: "1Gi"
+      cpu: "500m"
+      memory: "100Mi"
+      storage: "100Mi"
 
     network:
       ports:
