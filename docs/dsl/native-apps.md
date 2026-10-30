@@ -34,7 +34,7 @@ Below we provide all ***mandatory*** (✅) and ***optional*** (❌) fields that 
 |---|---|---|---|---|
 | `type` | string, `native` | ✅ | `"native"` | Application profile type: integration, native, or device. |
 | `schemaVersion` | string | ✅ | `"1.1.0"` latest | App profile schema version using semantic versioning (e.g., 1.0.0). |
-| `name` | string | ✅ | `"hello-world-webserver"` | Globally unique application name for identification. Must match `^[a-z0-9-]+$` (lowercase letters, digits, and hyphens only). |
+| `name` | string | ✅ | `"hello-world-webserver"` | Globally unique application name for identification. Must match `^[a-z0-9-]+$` (lowercase letters, digits, and hyphens only). Maximum **29 characters**. |
 | `version` | string | ✅ | `"1.0.0"` | Internal version identifier for the application instance. |
 | `description` | string | ❌ | `"Nginx web server for HyperAI platform assessment."` | A short description of what the application does. |
 | `owner` | string | ✅ | `"UoA-Team"` | Person or organization responsible for this application. |
